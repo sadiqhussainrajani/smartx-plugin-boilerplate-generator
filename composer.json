@@ -1,0 +1,17 @@
+{
+    "name": "smartx-plugin-boilerplate-generator",
+    "autoload": {
+        "psr-4": {
+            "Smartx_Plugin_Boilerplate_Generator\\": "includes/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/sadiqhussainrajani/smartx-plugin-boilerplate.git"
+        }
+    ],
+    "require": {
+        "smartx-plugin-boilerplate": "dev-master"
+    }
+}
