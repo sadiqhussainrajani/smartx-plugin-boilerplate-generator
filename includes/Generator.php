@@ -98,15 +98,15 @@ class Generator{
         while (false !== ($file = readdir($dir))) {
             if (($file != '.') && ($file != '..')) {
                 if (is_dir($source . '/' . $file)) {
-                    if ($file != ".git" && $file != "vendor") {
+                    if ($file != ".git") {
                         $this->recurse_copy($source . '/' . $file, $destination . '/' . $file,false);
                     }
                 } else {
-                    if ($file != "README.md" && $file != "composer.json") {
+                    if ($file != "README.md") {
                         $file_copy = str_replace($this->source_name, $this->plugin_slug, $file);
                         $file_copy = str_replace(str_replace('_','',Helper::getPrefix($this->source_name)), str_replace('_','',Helper::getPrefix($this->plugin_slug)), $file_copy);
                         copy($source . '/' . $file, $destination . '/' . $file_copy);
-
+                        
                         //Human Friendly Name
                         @file_put_contents($destination . '/' . $file_copy, str_replace(Helper::getHumanFriendly($this->source_name), Helper::getHumanFriendly($this->plugin_name), file_get_contents($destination . '/' . $file_copy)));
                         //Slug
@@ -117,8 +117,10 @@ class Generator{
                         //Snake Cases - Plugin Name
                         @file_put_contents($destination . '/' . $file_copy, str_replace(Helper::getSnakeCase($this->source_name), Helper::getSnakeCase($this->plugin_name), file_get_contents($destination . '/' . $file_copy)));
                         //Change Prefix
-                        @file_put_contents($destination . '/' . $file_copy, str_replace(Helper::getPrefix($this->source_name,true), Helper::getPrefix($this->plugin_name,true), file_get_contents($destination . '/' . $file_copy))); //Uppercase
                         @file_put_contents($destination . '/' . $file_copy, str_replace(Helper::getPrefix($this->source_name), Helper::getPrefix($this->plugin_name), file_get_contents($destination . '/' . $file_copy))); //Lowercase
+                        @file_put_contents($destination . '/' . $file_copy, str_replace(Helper::getPrefix($this->source_name,true), Helper::getPrefix($this->plugin_name,true), file_get_contents($destination . '/' . $file_copy))); //Uppercase
+                        @file_put_contents($destination . '/' . $file_copy, str_replace(str_replace('_','',Helper::getPrefix($this->source_name)), str_replace('_','',Helper::getPrefix($this->plugin_name)), file_get_contents($destination . '/' . $file_copy))); //Lowercase
+                        @file_put_contents($destination . '/' . $file_copy, str_replace(str_replace('_','',Helper::getPrefix($this->source_name,true)), str_replace('_','',Helper::getPrefix($this->plugin_name,true)), file_get_contents($destination . '/' . $file_copy))); //Uppercase
                     }
                 }
             }
