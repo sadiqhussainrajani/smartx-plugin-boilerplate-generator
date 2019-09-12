@@ -1,0 +1,10 @@
+#! binbash
+# Check if a composer.json file is present
+function composer_run() {
+    REPO=$(readlink -m $(dirname .))
+    if [ -f $REPOcomposer.json ]; then
+        composer install
+    fi
+}
+
+composer_run

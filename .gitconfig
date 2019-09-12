@@ -1,0 +1,2 @@
+[alias]
+clone = clone –template=./git-templates
